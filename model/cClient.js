@@ -1,13 +1,17 @@
-class Cclient  {
-    constructor(firstName, lastName, country, office, endClient, role, email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.country = country;
-        this.office = office;
-        this.endClient =  endClient;
-        this.role =  role ;
-        this.email = email;
+const mongoose = require('mongoose')
 
-    }
-}
-module.exports = {Cclient};
+const CclientSchema = new mongoose.Schema({
+    firstName: String,
+    lastName:  String,
+    country: String,
+    office: String,
+    endClient: String,
+    role: String,
+    email: String,
+
+
+})
+
+const Cclient = mongoose.model('Cclient', CclientSchema)
+
+module.exports = Cclient

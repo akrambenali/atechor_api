@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const client_routes = require('./route/client')
+const cclient_routes = require('./route/cClient')
 
 require('dotenv').config()
 
@@ -11,3 +12,4 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use(express.json())
 app.use('/api/v1/clients', client_routes)
+app.use('/api/v1/cclients', cclient_routes)
