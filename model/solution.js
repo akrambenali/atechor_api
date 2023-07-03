@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 
 const SolutionSchema = new mongoose.Schema({
    
+    solutionName: string,
     userRate: string ,
     expertRate: string,
     solutionPopularty: string ,
