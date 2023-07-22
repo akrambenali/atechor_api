@@ -8,6 +8,9 @@ const SolutionSchema = new mongoose.Schema({
   "brandImg": {
     "type": "String"
   },
+  "email": {
+    "type": "String"
+  },
   "userRate": {
     "type": "Number"
   },
