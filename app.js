@@ -11,7 +11,6 @@ require('dotenv').config()
 
 
 var corsOptions = {
- // origin: ['https://app.silverligne.com/', 'https://api.silverligne.com/']
   origin: '*'
 };
 

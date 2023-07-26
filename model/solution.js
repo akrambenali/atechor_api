@@ -11,6 +11,9 @@ const SolutionSchema = new mongoose.Schema({
   "email": {
     "type": "String"
   },
+  "urlCompany": {
+    "type": "String"
+  },
   "userRate": {
     "type": "Number"
   },
