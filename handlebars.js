@@ -27,7 +27,7 @@ var mailOptions = {
   from: 'akram1304@gmail.com',
   to: "benali.akr@gmail.com",
   subject: 'Sending Email using Node.js',
-  template: 'atechor',
+  template: 'user',
   context: {
     title: 'Title Here',
     text: "Lorem ipsum dolor sit amet, consectetur..."

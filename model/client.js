@@ -4,7 +4,6 @@ const ClientSchema = new mongoose.Schema({
     firstName: String,
     lastName:  String,
     company: String,
-    country: String,
     role: String,
     email: String,
 

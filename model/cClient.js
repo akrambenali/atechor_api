@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const CclientSchema = new mongoose.Schema({
     firstName: String,
     lastName:  String,
-    country: String,
     office: String,
     endClient: String,
     role: String,

@@ -1,7 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const uuid = require('uuid');
 
 
 const SolutionSchema = new mongoose.Schema({
+  "id": { type: String, default: uuid.v4 },
   "solutionName": {
     "type": "String"
   },

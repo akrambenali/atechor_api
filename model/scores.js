@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 const { Score } = require('./score')
+const uuid = require('uuid');
 
 const SearchSchema = new mongoose.Schema({
-    "id": {
-        "type": "String"
-      },
+    "id": { type: String, default: uuid.v4 },
     scores: [Score] ,
     "coefficients": {
         "software": {
@@ -25,6 +24,6 @@ const SearchSchema = new mongoose.Schema({
       },
 })
 
-const Search = mongoose.model('Search', SearchSchema)
+const Scores = mongoose.model('Scores', SearchSchema)
 
-module.exports = Search
+module.exports = Scores
