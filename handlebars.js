@@ -3,14 +3,20 @@ var nodemailer = require('nodemailer');
 var hbs = require('nodemailer-express-handlebars');
 require('dotenv').config()
 
+// Create the transporter with the required configuration for Outlook
+// change the user and pass !
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: "smtp.office365.com",
+  port: "587",
+  secureConnection: false,
+  tls: { ciphers: "SSLv3" },
   auth: {
     user: process.env.EMAIL,
-    pass: process.env.PASSWORD
-  }
+    pass: process.env.PASSWORD,
+  },
 });
 
+// setup e-mail data, even with unicode symbols
 const handlebarOptions = {
   viewEngine: {
     extName: ".handlebars",
@@ -23,8 +29,9 @@ const handlebarOptions = {
 
 transporter.use('compile', hbs(handlebarOptions));
 
+// send mail with defined transport object
 var mailOptions = {
-  from: 'akram1304@gmail.com',
+  from: 'contact@atechor.com',
   to: "benali.akr@gmail.com",
   subject: 'Sending Email using Node.js',
   template: 'user',
@@ -41,4 +48,5 @@ transporter.sendMail(mailOptions, function (error, info) {
   } else {
     console.log('Email sent: ' + info.response);
   }
+
 });
