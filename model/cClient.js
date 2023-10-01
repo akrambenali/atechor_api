@@ -1,16 +1,17 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const CclientSchema = new mongoose.Schema({
-    firstName: String,
-    lastName:  String,
-    office: String,
-    endClient: String,
-    role: String,
-    email: String,
+const CclientSchema = new mongoose.Schema(
+  {
+    firstName: { type: "String" },
+    lastName: { type: "String" },
+    office: { type: "String" },
+    endClient: { type: "String" },
+    role: { type: "String" },
+    email: { type: "String" },
+  },
+  { timestamps: { createdAt: "created_at" } }
+);
 
+const Cclient = mongoose.model("Cclient", CclientSchema);
 
-})
-
-const Cclient = mongoose.model('Cclient', CclientSchema)
-
-module.exports = Cclient
+module.exports = Cclient;

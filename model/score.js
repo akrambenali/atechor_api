@@ -1,12 +1,12 @@
 const Score = {
     urlImage: String,
     title: String,
-    Score: String,
-    software: String,
-    price: String,
-    provider: String,
-    compatibility: String,
-    positionning: String,
+    Score: Number,
+    software: Number,
+    price: Number,
+    provider: Number,
+    compatibility: Number,
+    positionning: Number,
     urlCompany: String
     
 }

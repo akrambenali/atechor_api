@@ -1,15 +1,18 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const ClientSchema = new mongoose.Schema({
-    firstName: String,
-    lastName:  String,
-    company: String,
-    role: String,
-    email: String,
+const ClientSchema = new mongoose.Schema(
+  {
+    firstName: { type: "String" },
+    lastName: { type: "String" },
+    company: { type: "String" },
+    role: { type: "String" },
+    email: { type: "String" },
+    acceptTerms: { type: "Boolean" },
+    contactOk: { type: "Boolean" }
+  },
+  { timestamps: { createdAt: "created_at" } }
+);
 
+const Client = mongoose.model("Client", ClientSchema);
 
-})
-
-const Client = mongoose.model('Client', ClientSchema)
-
-module.exports = Client
+module.exports = Client;

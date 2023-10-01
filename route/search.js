@@ -1,19 +1,22 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const  { 
-    postSearchs,
-    getSearch,
-    updateSearch,
-    deleteSearch
-} = require('../controller/search')
+const {
+  getSearchs,
+  postSearchs,
+  getSearch,
+  updateSearch,
+  deleteSearch
+} = require("../controller/search");
 
-router.post('/', postSearchs)
+router.post("/", postSearchs);
 
-router.get('/:SearchID', getSearch)
+router.get("/", getSearchs);
 
-router.put('/:SearchID', updateSearch) 
+router.get("/:SearchID", getSearch);
 
-router.delete('/:SearchID', deleteSearch)
+router.put("/:SearchID", updateSearch);
 
-module.exports = router
+router.delete("/:SearchID", deleteSearch);
+
+module.exports = router;

@@ -1,16 +1,17 @@
-const mongoose = require('mongoose')
-const uuid = require('uuid');
-const { Score } = require('./score')
-const { Searches} =  require('./search')
+const mongoose = require("mongoose");
+const { Score } = require("./score");
 
+const ScoresSchema = new mongoose.Schema(
+  {
+    urlId: { type: "String" },
+    scores: ["Mixed"],
+    history: {
+      type: ["Mixed"],
+    },
+  },
+  { timestamps: { createdAt: "created_at" } }
+);
 
-const SearchSchema = new mongoose.Schema({
-    urlId: { type: "String", required: true, default: () => uuid.v4() },
-    scores: [Score] ,
-    history: Searches
-   
-})
+const Scores = mongoose.model("Scores", ScoresSchema);
 
-const Scores = mongoose.model('Scores', SearchSchema)
-
-module.exports = Scores
+module.exports = Scores;
