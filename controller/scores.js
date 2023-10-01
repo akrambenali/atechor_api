@@ -8,7 +8,7 @@ const getScoress = ((req, res) => {
 
 const getScore = ((req, res) => {
     Scores.findOne({ urlId: req.params.ScoresID })
-        .then(result => res.status(200).json({ result }))
+        .then(result => res.status(200).send(result))
         .catch(() => res.status(404).json({msg: 'Scores not found'}))
 })
 
