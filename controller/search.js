@@ -111,14 +111,14 @@ const postSearchs = async (req, res) => {
     }
   }
   if (scoreItems.length > 0) {
-    let result;
+    let result = {};
     result.urlId = uuid.v4();
     let url = process.env.APP_URI + result.urlId;
     result.scores = scoreItems;
-    result.history = request;
+    result.history = JSON.stringify(request);
     Scores.create(result);
 
-    let client = await Client.findOne().sort({ created_at: -1 }).lean().exec();
+     let client = await Client.findOne().sort({ created_at: -1 }).lean().exec();
     Notification.sendNotifEmailClient(
       client.email,
       client.lastName,
@@ -130,7 +130,7 @@ const postSearchs = async (req, res) => {
       client.firstName,
       client.company,
       url
-    );
+    ); 
 
     res.send({
       message: "Resultat de la recherche!",
