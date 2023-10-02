@@ -12,12 +12,22 @@ const scores_routes = require('./route/scores')
 
 require('dotenv').config()
 
+var allowedOrigins = ['http://13.36.147.168/','https://13.36.147.168/',
+                      'http://app.atechor.com', 'https://app.atechor.com', 'http://localhost/'];
+app.use(cors({
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
-var corsOptions = {
-  origin: '*'
-};
-
-app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGO_URI)
     .then((result) => app.listen(5000))
