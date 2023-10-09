@@ -8,6 +8,8 @@ const CclientSchema = new mongoose.Schema(
     endClient: { type: "String" },
     role: { type: "String" },
     email: { type: "String" },
+    acceptTerms: { type: "Boolean" },
+    contactOk: { type: "Boolean" }
   },
   { timestamps: { createdAt: "created_at" } }
 );

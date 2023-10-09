@@ -115,7 +115,7 @@ const postSearchs = async (req, res) => {
     result.urlId = uuid.v4();
     let url = process.env.APP_URI + result.urlId;
     result.scores = scoreItems;
-    result.history = JSON.stringify(request);
+    result.history = request;
     Scores.create(result);
 
      let client = await Client.findOne().sort({ created_at: -1 }).lean().exec();
