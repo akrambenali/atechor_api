@@ -132,11 +132,10 @@ const postSearchs = async (req, res) => {
       url
     ); 
 
-    res.send({
+    res.status(200).json({
       message: "Resultat de la recherche!",
       result,
     });
-    res.status(200);
   }
 };
 
