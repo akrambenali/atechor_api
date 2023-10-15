@@ -102,13 +102,7 @@ const postSearchs = async (req, res) => {
 
   let scoreItems = [];
   if (solutions.length > 0) {
-    for (let index = 0; index < solutions.length; index++) {
-      const element = solutions[index];
-      let score = calculateScore(element, req.body.compatibility);
-      if (score) {
-        scoreItems.push(score);
-      }
-    }
+    scoreItems = calculateScore(solutions, req.body.compatibility);
   }
   if (scoreItems.length > 0) {
     let result = {};
@@ -118,7 +112,7 @@ const postSearchs = async (req, res) => {
     result.history = request;
     Scores.create(result);
 
-     let client = await Client.findOne().sort({ created_at: -1 }).lean().exec();
+    let client = await Client.findOne().sort({ created_at: -1 }).lean().exec();
     Notification.sendNotifEmailClient(
       client.email,
       client.lastName,
@@ -130,7 +124,7 @@ const postSearchs = async (req, res) => {
       client.firstName,
       client.company,
       url
-    ); 
+    );
 
     res.status(200).json({
       message: "Resultat de la recherche!",
@@ -164,33 +158,41 @@ function average(array) {
   return array.reduce((x, y) => x + y) / array.length;
 }
 
-function calculateScore(solution, request) {
-  let itemScore = Score;
-  let position =
-    solution.compatibility.position * request.coefficients.position; 
-  let valueForMoney =
-    solution.compatibility.valueForMoney * request.coefficients.price;
-  let application = solution.application.total * request.coefficients.software;
-  let editeur = solution.software.total * request.coefficients.vendor;
-  let companySize = getCompanySize(request.size, solution.compatibility.size);
-  let secteur = getSecteur(request.secteur, solution.compatibility.secteur);
-  secteur.push(companySize);
-  let compatibilite = average(secteur) * request.coefficients.Compatibility;
-  let score =
-    (position + valueForMoney + application + editeur + compatibilite) /
-    calculateSumCoefficients(request.coefficients);
-  if (score > 6) {
-    itemScore.urlImage = solution.brandImg;
-    itemScore.title = solution.solutionName;
-    itemScore.Score = score;
-    itemScore.software = application;
-    itemScore.price = valueForMoney;
-    itemScore.provider = editeur;
-    itemScore.compatibility = compatibilite;
-    itemScore.positionning = position;
-    itemScore.urlCompany = solution.urlCompany;
+function calculateScore(solutions, request) {
+  let scores = [];
+  for (let index = 0; index < solutions.length; index++) {
+    let solution = solutions[index];
+    let itemScore = {};
+    let position =
+      solution.compatibility.position * request.coefficients.position;
+    let valueForMoney =
+      solution.compatibility.valueForMoney * request.coefficients.price;
+    let application =
+      solution.application.total * request.coefficients.software;
+    let editeur = solution.software.total * request.coefficients.vendor;
+    let companySize = getCompanySize(request.size, solution.compatibility.size);
+    let secteur = getSecteur(request.secteur, solution.compatibility.secteur);
+    secteur.push(companySize);
+    let compatibilite = average(secteur) * request.coefficients.Compatibility;
+    let score =
+      (position + valueForMoney + application + editeur + compatibilite) /
+      calculateSumCoefficients(request.coefficients);
+    if (score > 6) {
+      itemScore.urlImage = solution.brandImg;
+      itemScore.title = solution.solutionName;
+      itemScore.Score = score;
+      itemScore.software = application;
+      itemScore.price = valueForMoney;
+      itemScore.provider = editeur;
+      itemScore.compatibility = compatibilite;
+      itemScore.positionning = position;
+      itemScore.urlCompany = solution.urlCompany;
+    }
+
+    scores.push(itemScore);
   }
-  return itemScore;
+
+  return scores;
 }
 
 function getCompanySize(requestCompany, solution) {
