@@ -123,7 +123,10 @@ const postSearchs = async (req, res) => {
       client.lastName,
       client.firstName,
       client.company,
-      url
+      url,
+      client.email,
+      client.role,
+      client.contactOk
     );
 
     res.status(200).json({
@@ -177,22 +180,24 @@ function calculateScore(solutions, request) {
     let score =
       (position + valueForMoney + application + editeur + compatibilite) /
       calculateSumCoefficients(request.coefficients);
-    if (score > 6) {
+    if (score >= 6) {
       itemScore.urlImage = solution.brandImg;
       itemScore.title = solution.solutionName;
       itemScore.Score = score;
-      itemScore.software = application;
-      itemScore.price = valueForMoney;
-      itemScore.provider = editeur;
-      itemScore.compatibility = compatibilite;
-      itemScore.positionning = position;
+      itemScore.software =  solution.application.total;
+      itemScore.price = solution.compatibility.valueForMoney;
+      itemScore.provider = solution.software.total;
+      itemScore.compatibility = average(secteur) ;
+      itemScore.positionning =  solution.compatibility.position;
       itemScore.urlCompany = solution.urlCompany;
     }
 
     scores.push(itemScore);
   }
-
-  return scores;
+  
+  return scores.sort(
+    (p1, p2) => 
+    (p1.score < p2.score) ? 1 : (p1.score > p2.score) ? -1 : 0);
 }
 
 function getCompanySize(requestCompany, solution) {
