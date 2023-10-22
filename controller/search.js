@@ -33,26 +33,31 @@ const postSearchs = async (req, res) => {
     solutions.filter((item) => {
       item.internationnalBusiness.both === true;
     });
-  if (request.hosting.cloud)
+  for (let index = 0; index < request.hosting.length; index++) {
+    const element = request.hosting[index];
+    if (element.cloud)
     solutions.filter((item) => {
       item.hosting.cloud === true;
     });
-  if (request.hosting.onPremise)
+  if (element.onPremise)
     solutions.filter((item) => {
       item.hosting.onPremise === true;
     });
-  if (request.hosting.hybrid)
+  if (element.hybrid)
     solutions.filter((item) => {
       item.hosting.hybrid === true;
     });
-  if (request.hosting.saas)
+  if (element.saas)
     solutions.filter((item) => {
       item.hosting.saas === true;
     });
-  if (request.hosting.any)
+  if (element.any)
     solutions.filter((item) => {
       item.hosting.any === true;
     });
+    
+  }  
+
   if (request.dev.low)
     solutions.filter((item) => {
       item.dev.low === true;

@@ -87,24 +87,7 @@ const SearchSchema = new mongoose.Schema(
         },
       },
       reason: {
-        sao: {
-          type: "Boolean",
-        },
-        mf: {
-          type: "Boolean",
-        },
-        pi: {
-          type: "Boolean",
-        },
-        in: {
-          type: "Boolean",
-        },
-        vt: {
-          type: "Boolean",
-        },
-        other: {
-          type: "Boolean",
-        },
+        type: ["Mixed"],
       },
       coefficients: {
         software: {
@@ -150,21 +133,7 @@ const SearchSchema = new mongoose.Schema(
       },
     },
     hosting: {
-      cloud: {
-        type: "Boolean",
-      },
-      onPremise: {
-        type: "Boolean",
-      },
-      hybrid: {
-        type: "Boolean",
-      },
-      saas: {
-        type: "Boolean",
-      },
-      any: {
-        type: "Boolean",
-      },
+      type: ["Mixed"],
     },
     dev: {
       low: {

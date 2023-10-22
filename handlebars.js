@@ -51,7 +51,7 @@ const sendNotifEmailClient = (userEmail, lastName, firstName , url) => {
   });
 };
 
-const sendNotifEmailAtechor = (lastName, firstName, companyName, url, email, role, contact) => {
+const sendNotifEmailAtechor = (lastName, firstName, companyName, url) => {
   var transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
     port: "587",
@@ -86,10 +86,7 @@ const sendNotifEmailAtechor = (lastName, firstName, companyName, url, email, rol
       name: firstName + " " + lastName,
       company: companyName,
       solution: "ERP",
-      link: url,
-      email: email,
-      role: role,
-      contact: contact,
+      link: url
     },
   };
 
