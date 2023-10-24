@@ -36,27 +36,26 @@ const postSearchs = async (req, res) => {
   for (let index = 0; index < request.hosting.length; index++) {
     const element = request.hosting[index];
     if (element.cloud)
-    solutions.filter((item) => {
-      item.hosting.cloud === true;
-    });
-  if (element.onPremise)
-    solutions.filter((item) => {
-      item.hosting.onPremise === true;
-    });
-  if (element.hybrid)
-    solutions.filter((item) => {
-      item.hosting.hybrid === true;
-    });
-  if (element.saas)
-    solutions.filter((item) => {
-      item.hosting.saas === true;
-    });
-  if (element.any)
-    solutions.filter((item) => {
-      item.hosting.any === true;
-    });
-    
-  }  
+      solutions.filter((item) => {
+        item.hosting.cloud === true;
+      });
+    if (element.onPremise)
+      solutions.filter((item) => {
+        item.hosting.onPremise === true;
+      });
+    if (element.hybrid)
+      solutions.filter((item) => {
+        item.hosting.hybrid === true;
+      });
+    if (element.saas)
+      solutions.filter((item) => {
+        item.hosting.saas === true;
+      });
+    if (element.any)
+      solutions.filter((item) => {
+        item.hosting.any === true;
+      });
+  }
 
   if (request.dev.low)
     solutions.filter((item) => {
@@ -189,20 +188,19 @@ function calculateScore(solutions, request) {
       itemScore.urlImage = solution.brandImg;
       itemScore.title = solution.solutionName;
       itemScore.Score = score;
-      itemScore.software =  solution.application.total;
+      itemScore.software = solution.application.total;
       itemScore.price = solution.compatibility.valueForMoney;
       itemScore.provider = solution.software.total;
-      itemScore.compatibility = average(secteur) ;
-      itemScore.positionning =  solution.compatibility.position;
+      itemScore.compatibility = average(secteur);
+      itemScore.positionning = solution.compatibility.position;
       itemScore.urlCompany = solution.urlCompany;
     }
 
     scores.push(itemScore);
   }
-  
-  return scores.sort(
-    (p1, p2) => 
-    (p1.score < p2.score) ? 1 : (p1.score > p2.score) ? -1 : 0);
+  scores = scores.sort((a, b) => parseFloat(b.Score) - parseFloat(a.Score));
+
+  return scores;
 }
 
 function getCompanySize(requestCompany, solution) {
