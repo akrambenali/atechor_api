@@ -200,7 +200,7 @@ function calculateScore(solutions, request) {
   }
   scores = scores.sort((a, b) => parseFloat(b.Score) - parseFloat(a.Score));
 
-  return scores;
+  return scores.slice(0,6);
 }
 
 function getCompanySize(requestCompany, solution) {
