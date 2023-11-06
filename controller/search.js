@@ -208,7 +208,7 @@ function getCompanySize(requestCompany, solution) {
   let size = 0;
   for (let i = 0; i < keys.length; i++) {
     const element = requestCompany[keys[i]];
-    if (element) {
+    if (element && solution[keys[i]] > 0) {
       size = solution[keys[i]];
     }
   }
@@ -220,7 +220,7 @@ function getSecteur(requestSecteur, solution) {
   let secteur = [];
   for (let i = 0; i < requestSecteur.length; i++) {
     const element = requestSecteur[i];
-    if (element.value === true) {
+    if (element.value === true && solution[element.codeSecteur] > 0 ) {
       secteur.push(solution[element.codeSecteur]);
     }
   }
