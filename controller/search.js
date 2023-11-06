@@ -178,29 +178,32 @@ function calculateScore(solutions, request) {
       solution.application.total * request.coefficients.software;
     let editeur = solution.software.total * request.coefficients.vendor;
     let companySize = getCompanySize(request.size, solution.compatibility.size);
-    let secteur = getSecteur(request.secteur, solution.compatibility.secteur);
-    secteur.push(companySize);
-    let compatibilite = average(secteur) * request.coefficients.Compatibility;
-    let score =
-      (position + valueForMoney + application + editeur + compatibilite) /
-      calculateSumCoefficients(request.coefficients);
-    if (score >= 6) {
-      itemScore.urlImage = solution.brandImg;
-      itemScore.title = solution.solutionName;
-      itemScore.Score = score;
-      itemScore.software = solution.application.total;
-      itemScore.price = solution.compatibility.valueForMoney;
-      itemScore.provider = solution.software.total;
-      itemScore.compatibility = average(secteur);
-      itemScore.positionning = solution.compatibility.position;
-      itemScore.urlCompany = solution.urlCompany;
+    if (companySize === 0) {
+      continue;
+    } else {
+      let secteur = getSecteur(request.secteur, solution.compatibility.secteur);
+      secteur.push(companySize);
+      let compatibilite = average(secteur) * request.coefficients.Compatibility;
+      let score =
+        (position + valueForMoney + application + editeur + compatibilite) /
+        calculateSumCoefficients(request.coefficients);
+      if (score >= 6) {
+        itemScore.urlImage = solution.brandImg;
+        itemScore.title = solution.solutionName;
+        itemScore.Score = score;
+        itemScore.software = solution.application.total;
+        itemScore.price = solution.compatibility.valueForMoney;
+        itemScore.provider = solution.software.total;
+        itemScore.compatibility = average(secteur);
+        itemScore.positionning = solution.compatibility.position;
+        itemScore.urlCompany = solution.urlCompany;
+      }
+      scores.push(itemScore);
     }
-
-    scores.push(itemScore);
   }
   scores = scores.sort((a, b) => parseFloat(b.Score) - parseFloat(a.Score));
 
-  return scores.slice(0,6);
+  return scores.slice(0, 6);
 }
 
 function getCompanySize(requestCompany, solution) {
@@ -220,7 +223,7 @@ function getSecteur(requestSecteur, solution) {
   let secteur = [];
   for (let i = 0; i < requestSecteur.length; i++) {
     const element = requestSecteur[i];
-    if (element.value === true && solution[element.codeSecteur] > 0 ) {
+    if (element.value === true && solution[element.codeSecteur] > 0) {
       secteur.push(solution[element.codeSecteur]);
     }
   }
