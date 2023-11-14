@@ -219,11 +219,12 @@ function getCompanySize(requestCompany, solution) {
 
 function getSecteur(requestSecteur, solution) {
   let secteur = [];
-  for (let i = 0; i < requestSecteur.length; i++) {
-    const element = requestSecteur[i];
-    if (element.value === true && solution[element.codeSecteur] > 0) {
-      secteur.push(solution[element.codeSecteur]);
-    }
+
+  if (
+    requestSecteur.value === true &&
+    solution[requestSecteur.codeSecteur] > 0
+  ) {
+    secteur.push(solution[requestSecteur.codeSecteur]);
   }
   return secteur;
 }

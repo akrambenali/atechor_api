@@ -13,7 +13,7 @@ require("dotenv").config();
 
 // enabling CORS for some specific origins only. 
 let corsOptions = { 
-  origin : ['http://localhost:4200', 'https://app.atechor.com'], 
+  origin : ['http://localhost:4200', 'https://app.atechor.com',], 
 } 
  
 app.use(cors(corsOptions)) 
