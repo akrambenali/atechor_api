@@ -7,6 +7,7 @@ const ClientSchema = new mongoose.Schema(
     company: { type: "String" },
     role: { type: "String" },
     email: { type: "String" },
+    phoneNumber: { type: "String" },
     acceptTerms: { type: "Boolean" },
     contactOk: { type: "Boolean" }
   },

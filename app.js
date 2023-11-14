@@ -4,10 +4,10 @@ const cors = require("cors");
 const app = express();
 
 const client_routes = require("./route/client");
-const cclient_routes = require("./route/cClient");
 const solution_routes = require("./route/solution");
 const search_routes = require("./route/search");
 const scores_routes = require("./route/scores");
+const rating_routes = require("./route/rating");
 
 require("dotenv").config();
 
@@ -21,10 +21,10 @@ app.use(cors(corsOptions))
 app.use(express.json());
 /* app.use(express.urlencoded({ extended: true })); */
 app.use("/api/v1/clients", client_routes);
-app.use("/api/v1/cclients", cclient_routes);
 app.use("/api/v1/solutions", solution_routes);
 app.use("/api/v1/search", search_routes);
 app.use("/api/v1/scores", scores_routes);
+app.use("/api/v1/rating", rating_routes);
 
 // set port, listen for requests
 const PORT = process.env.PORT;

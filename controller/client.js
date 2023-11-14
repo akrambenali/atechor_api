@@ -37,12 +37,3 @@ module.exports = {
     updateClient,
     deleteClient
 }
-
-
-/* id: Clients[index].id,
-firstName: req.body.firstName, 
-lastName: req.body.lastName, 
-company: req.body.company, 
-country: req.body.country,
-role: req.body.role,
-email: req.body.email */
