@@ -7,7 +7,7 @@ const getSolutions = (req, res) => {
 };
 
 const getSolution = (req, res) => {
-  Solution.findOne({ _id: req.params.SolutionID })
+  Solution.findOne({ _id: req.params.solutionID })
     .then((result) => res.status(200).json({ result }))
     .catch(() => res.status(404).json({ msg: "Solution not found" }));
 };

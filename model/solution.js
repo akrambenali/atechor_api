@@ -155,39 +155,7 @@ const SolutionSchema = new mongoose.Schema(
         },
       },
       features: {
-        finance: {
-          type: "Boolean",
-        },
-        CRM: {
-          type: "Boolean",
-        },
-        vente: {
-          type: "Boolean",
-        },
-        RH: {
-          type: "Boolean",
-        },
-        projets: {
-          type: "Boolean",
-        },
-        achats: {
-          type: "Boolean",
-        },
-        production: {
-          type: "Boolean",
-        },
-        logistique: {
-          type: "Boolean",
-        },
-        services: {
-          type: "Boolean",
-        },
-        actifs: {
-          type: "Boolean",
-        },
-        rnd: {
-          type: "Boolean",
-        },
+        type: ["Mixed"],
       },
       position: {
         type: "Number",

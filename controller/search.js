@@ -88,18 +88,9 @@ const postSearchs = async (req, res) => {
       item.compatibility.implemntation.any === true;
     });
   if (request.compatibility.fonctions) {
-    for (
-      let index = 0;
-      index < request.compatibility.fonctions.length;
-      index++
-    ) {
-      const element = request.compatibility.fonctions[index];
-      if (element.value) {
-        solutions.filter((item) => {
-          item.compatibility.features[element.value] === true;
-        });
-      }
-    }
+    solutions.filter((item) => {
+      item.compatibility.features === request.compatibility.fonctions;
+    });
   }
 
   let scoreItems = [];
