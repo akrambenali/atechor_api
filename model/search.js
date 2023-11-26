@@ -46,9 +46,7 @@ const SearchSchema = new mongoose.Schema(
           type: "Boolean",
         },
       },
-      fonctions: {
-        type: ["Mixed"],
-      },
+      fonctions: ["Mixed"],
       usersNumber: {
         A: {
           type: "Boolean",

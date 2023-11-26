@@ -154,9 +154,7 @@ const SolutionSchema = new mongoose.Schema(
           type: "Boolean",
         },
       },
-      features: {
-        type: ["Mixed"],
-      },
+      features: ["Mixed"],
       position: {
         type: "Number",
       },
