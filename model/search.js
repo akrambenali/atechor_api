@@ -147,6 +147,9 @@ const SearchSchema = new mongoose.Schema(
     connexion: {
       type: "Boolean",
     },
+    cabinetConseil: {
+      type: "Boolean",
+    },
   },
   { timestamps: { createdAt: "created_at" } }
 );

@@ -119,7 +119,8 @@ const postSearchs = async (req, res) => {
       url,
       client.email,
       client.role,
-      client.contactOk
+      client.contactOk,
+      client.phoneNumber
     );
 
     res.status(200).json({
