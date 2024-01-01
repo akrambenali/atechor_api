@@ -87,6 +87,36 @@ const postSearchs = async (req, res) => {
     solutions.filter((item) => {
       item.compatibility.implemntation.any === true;
     });
+  if (request.compatibility.size.A === true) {
+    solutions.filter((item) => {
+      item.compatibility.size.A > 0;
+    });
+  }
+  if (request.compatibility.size.B === true) {
+    solutions.filter((item) => {
+      item.compatibility.size.B > 0;
+    });
+  }
+  if (request.compatibility.size.C === true) {
+    solutions.filter((item) => {
+      item.compatibility.size.C > 0;
+    });
+  }
+  if (request.compatibility.size.D === true) {
+    solutions.filter((item) => {
+      item.compatibility.size.D > 0;
+    });
+  }
+  if (request.compatibility.size.E === true) {
+    solutions.filter((item) => {
+      item.compatibility.size.E > 0;
+    });
+  }
+  if (request.compatibility.size.F === true) {
+    solutions.filter((item) => {
+      item.compatibility.size.F > 0;
+    });
+  }
   if (request.compatibility.fonctions) {
     solutions.filter((item) => {
       item.compatibility.features === request.compatibility.fonctions;
