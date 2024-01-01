@@ -119,7 +119,10 @@ const postSearchs = async (req, res) => {
   }
   if (request.compatibility.fonctions) {
     solutions.filter((item) => {
-      item.compatibility.features === request.compatibility.fonctions;
+      return Object.is(
+        request.compatibility.fonctions,
+        item.compatibility.features
+      );
     });
   }
 
