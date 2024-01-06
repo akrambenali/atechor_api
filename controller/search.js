@@ -15,6 +15,7 @@ const getSearchs = (req, res) => {
 
 const postSearchs = async (req, res) => {
   const request = req.body;
+  let SolutionsFiltred = [];
   Search.create(request)
     .then({ msg: "search OK" })
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
@@ -23,112 +24,118 @@ const postSearchs = async (req, res) => {
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
   if (request.internationnalBusiness.national)
     solutions.filter((item) => {
-      item.internationnalBusiness.national === true;
+      return item.internationnalBusiness.national === true;
     });
   if (request.internationnalBusiness.international)
     solutions.filter((item) => {
-      item.internationnalBusiness.international === true;
+      return item.internationnalBusiness.international === true;
     });
   if (request.internationnalBusiness.both)
     solutions.filter((item) => {
-      item.internationnalBusiness.both === true;
+      return item.internationnalBusiness.both === true;
     });
 
   if (request.hosting.cloud)
     solutions.filter((item) => {
-      item.hosting.cloud === true;
+      return item.hosting.cloud === true;
     });
   if (request.hosting.onPremise)
     solutions.filter((item) => {
-      item.hosting.onPremise === true;
+      return item.hosting.onPremise === true;
     });
   if (request.hosting.hybrid)
     solutions.filter((item) => {
-      item.hosting.hybrid === true;
+      return item.hosting.hybrid === true;
     });
   if (request.hosting.saas)
     solutions.filter((item) => {
-      item.hosting.saas === true;
+      return item.hosting.saas === true;
     });
   if (request.hosting.any)
     solutions.filter((item) => {
-      item.hosting.any === true;
+      return item.hosting.any === true;
     });
 
   if (request.dev.low)
     solutions.filter((item) => {
-      item.dev.low === true;
+      return item.dev.low === true;
     });
   if (request.dev.high)
     solutions.filter((item) => {
-      item.dev.high === true;
+      return item.dev.high === true;
     });
   if (request.dev.none)
     solutions.filter((item) => {
-      item.dev.none === true;
+      return item.dev.none === true;
     });
   if (request.compatibility.implemntation.M1)
     solutions.filter((item) => {
-      item.compatibility.implemntation.M1 === true;
+      return item.compatibility.implemntation.M1 === true;
     });
   if (request.compatibility.implemntation.M6)
     solutions.filter((item) => {
-      item.compatibility.implemntation.M6 === true;
+      return item.compatibility.implemntation.M6 === true;
     });
   if (request.compatibility.implemntation.A1)
     solutions.filter((item) => {
-      item.compatibility.implemntation.A1 === true;
+      return item.compatibility.implemntation.A1 === true;
     });
   if (request.compatibility.implemntation.A100)
     solutions.filter((item) => {
-      item.compatibility.implemntation.A100 === true;
+      return item.compatibility.implemntation.A100 === true;
     });
   if (request.compatibility.implemntation.any)
     solutions.filter((item) => {
-      item.compatibility.implemntation.any === true;
+      return item.compatibility.implemntation.any === true;
     });
   if (request.compatibility.size.A === true) {
     solutions.filter((item) => {
-      item.compatibility.size.A > 0;
+      return item.compatibility.size.A > 0;
     });
   }
   if (request.compatibility.size.B === true) {
     solutions.filter((item) => {
-      item.compatibility.size.B > 0;
+      return item.compatibility.size.B > 0;
     });
   }
   if (request.compatibility.size.C === true) {
     solutions.filter((item) => {
-      item.compatibility.size.C > 0;
+      return item.compatibility.size.C > 0;
     });
   }
   if (request.compatibility.size.D === true) {
     solutions.filter((item) => {
-      item.compatibility.size.D > 0;
+      return item.compatibility.size.D > 0;
     });
   }
   if (request.compatibility.size.E === true) {
     solutions.filter((item) => {
-      item.compatibility.size.E > 0;
+      return item.compatibility.size.E > 0;
     });
   }
   if (request.compatibility.size.F === true) {
     solutions.filter((item) => {
-      item.compatibility.size.F > 0;
+      return item.compatibility.size.F > 0;
     });
   }
   if (request.compatibility.fonctions) {
-    solutions.filter((item) => {
-      return Object.is(
-        request.compatibility.fonctions,
-        item.compatibility.features
-      );
-    });
+    for (let index = 0; index < solutions.length; index++) {
+      const solution = solutions[index];
+      const res = solution.compatibility.features.filter(function (o1) {
+        // filter out (!) items in result2
+        return request.compatibility.fonctions.some(function (o2) {
+          return o1.code === o2.code && o1.value === true && o2.value === true; // assumes unique id
+        });
+      });
+      if(res.length === request.compatibility.fonctions.length) {
+        SolutionsFiltred.push(solution)
+      }
+    } 
   }
 
   let scoreItems = [];
-  if (solutions.length > 0) {
-    scoreItems = calculateScore(solutions, req.body.compatibility);
+  if (SolutionsFiltred.length > 0) {
+    scoreItems = calculateScore(SolutionsFiltred, req.body.compatibility);
   }
   if (scoreItems.length > 0) {
     let result = {};
