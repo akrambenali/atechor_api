@@ -16,6 +16,7 @@ const getSearchs = (req, res) => {
 const postSearchs = async (req, res) => {
   const request = req.body;
   let SolutionsFiltred = [];
+  let secteurFiltred = [];
   Search.create(request)
     .then({ msg: "search OK" })
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
@@ -118,19 +119,28 @@ const postSearchs = async (req, res) => {
       return item.compatibility.size.F > 0;
     });
   }
+  if (request.compatibility.secteur) {
+    secteurFiltred = solutions.filter((item) => {
+      const codeSecteur = request.compatibility.secteur.codeSecteur;
+      return (
+        item.compatibility.secteur.hasOwnProperty(codeSecteur) &&
+        item.compatibility.secteur[codeSecteur] > 0
+      );
+    });
+  }
   if (request.compatibility.fonctions) {
-    for (let index = 0; index < solutions.length; index++) {
-      const solution = solutions[index];
+    for (let index = 0; index < secteurFiltred.length; index++) {
+      const solution = secteurFiltred[index];
       const res = solution.compatibility.features.filter(function (o1) {
         // filter out (!) items in result2
         return request.compatibility.fonctions.some(function (o2) {
           return o1.code === o2.code && o1.value === true && o2.value === true; // assumes unique id
         });
       });
-      if(res.length === request.compatibility.fonctions.length) {
-        SolutionsFiltred.push(solution)
+      if (res.length === request.compatibility.fonctions.length) {
+        SolutionsFiltred.push(solution);
       }
-    } 
+    }
   }
 
   let scoreItems = [];
