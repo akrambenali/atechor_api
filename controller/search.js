@@ -17,6 +17,7 @@ const postSearchs = async (req, res) => {
   const request = req.body;
   let SolutionsFiltred = [];
   let secteurFiltred = [];
+  let sizeFiltred = [];
   Search.create(request)
     .then({ msg: "search OK" })
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
@@ -90,37 +91,37 @@ const postSearchs = async (req, res) => {
       return item.compatibility.implemntation.any === true;
     });
   if (request.compatibility.size.A === true) {
-    solutions.filter((item) => {
+    sizeFiltred = solutions.filter((item) => {
       return item.compatibility.size.A > 0;
     });
   }
   if (request.compatibility.size.B === true) {
-    solutions.filter((item) => {
+    sizeFiltred = solutions.filter((item) => {
       return item.compatibility.size.B > 0;
     });
   }
   if (request.compatibility.size.C === true) {
-    solutions.filter((item) => {
+    sizeFiltred = solutions.filter((item) => {
       return item.compatibility.size.C > 0;
     });
   }
   if (request.compatibility.size.D === true) {
-    solutions.filter((item) => {
+    sizeFiltred = solutions.filter((item) => {
       return item.compatibility.size.D > 0;
     });
   }
   if (request.compatibility.size.E === true) {
-    solutions.filter((item) => {
+    sizeFiltred = solutions.filter((item) => {
       return item.compatibility.size.E > 0;
     });
   }
   if (request.compatibility.size.F === true) {
-    solutions.filter((item) => {
+    sizeFiltred = solutions.filter((item) => {
       return item.compatibility.size.F > 0;
     });
   }
   if (request.compatibility.secteur) {
-    secteurFiltred = solutions.filter((item) => {
+    secteurFiltred = sizeFiltred.filter((item) => {
       const codeSecteur = request.compatibility.secteur.codeSecteur;
       return (
         item.compatibility.secteur.hasOwnProperty(codeSecteur) &&
