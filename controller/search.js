@@ -120,18 +120,9 @@ const postSearchs = async (req, res) => {
       return item.compatibility.size.F > 0;
     });
   }
-  if (request.compatibility.secteur) {
-    secteurFiltred = sizeFiltred.filter((item) => {
-      const codeSecteur = request.compatibility.secteur.codeSecteur;
-      return (
-        item.compatibility.secteur.hasOwnProperty(codeSecteur) &&
-        item.compatibility.secteur[codeSecteur] > 0
-      );
-    });
-  }
   if (request.compatibility.fonctions) {
-    for (let index = 0; index < secteurFiltred.length; index++) {
-      const solution = secteurFiltred[index];
+    for (let index = 0; index < sizeFiltred.length; index++) {
+      const solution = sizeFiltred[index];
       const res = solution.compatibility.features.filter(function (o1) {
         // filter out (!) items in result2
         return request.compatibility.fonctions.some(function (o2) {
@@ -144,9 +135,20 @@ const postSearchs = async (req, res) => {
     }
   }
 
+  if (request.compatibility.secteur) {
+    secteurFiltred = SolutionsFiltred.filter((item) => {
+      const codeSecteur = request.compatibility.secteur.codeSecteur;
+
+      return (
+        item.compatibility.secteur.hasOwnProperty(codeSecteur) &&
+        item.compatibility.secteur[codeSecteur] > 0
+      );
+    });
+  }
+
   let scoreItems = [];
-  if (SolutionsFiltred.length > 0) {
-    scoreItems = calculateScore(SolutionsFiltred, req.body.compatibility);
+  if (secteurFiltred.length > 0) {
+    scoreItems = calculateScore(secteurFiltred, req.body.compatibility);
   }
   if (scoreItems.length > 0) {
     let result = {};
