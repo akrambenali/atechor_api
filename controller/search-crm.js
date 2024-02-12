@@ -1,5 +1,5 @@
-const Search = require("../model/search");
-const Solution = require("../model/solution");
+const SearchCRM = require("../model/search-crm");
+const SolutionCRM = require("../model/solution-crm");
 const Client = require("../model/client");
 const Scores = require("../model/scores");
 const Score = require("../model/score");
@@ -7,21 +7,21 @@ const Notification = require("../handlebars");
 const uuid = require("uuid");
 require("dotenv").config();
 
-const getSearchs = (req, res) => {
-  Search.find({})
+const getSearchsCrm = (req, res) => {
+  SearchCRM.find({})
     .then((result) => res.status(200).json({ result }))
     .catch((error) => res.status(500).json({ msg: error }));
 };
 
-const postSearchs = async (req, res) => {
+const postSearchsCrm = async (req, res) => {
   const request = req.body;
   let SolutionsFiltred = [];
   let secteurFiltred = [];
   let sizeFiltred = [];
-  Search.create(request)
+  SearchCRM.create(request)
     .then({ msg: "search OK" })
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
-  const solutions = await Solution.find({})
+  const solutions = await SolutionCRM.find({})
     .then({ msg: "Solutions  OK" })
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
   if (request.internationnalBusiness.national)
@@ -153,7 +153,7 @@ const postSearchs = async (req, res) => {
   if (scoreItems.length > 0) {
     let result = {};
     result.urlId = uuid.v4();
-    let url = process.env.APP_URI_ERP + result.urlId;
+    let url = process.env.APP_URI_CRM + result.urlId;
     result.scores = scoreItems;
     result.history = request;
     Scores.create(result);
@@ -164,7 +164,7 @@ const postSearchs = async (req, res) => {
       client.lastName,
       client.firstName,
       url,
-      'ERP'
+      'CRM'
     );
     Notification.sendNotifEmailAtechor(
       client.lastName,
@@ -175,7 +175,7 @@ const postSearchs = async (req, res) => {
       client.role,
       client.contactOk,
       client.phoneNumber,
-      'ERP'
+      'CRM'
     );
 
     res.status(200).json({
@@ -185,14 +185,14 @@ const postSearchs = async (req, res) => {
   }
 };
 
-const getSearch = (req, res) => {
-  Search.findOne({ _id: req.params.SearchID })
+const getSearchCrm = (req, res) => {
+  SearchCRM.findOne({ _id: req.params.SearchID })
     .then((result) => res.status(200).json({ result }))
     .catch(() => res.status(404).json({ msg: "Search not found" }));
 };
 
-const updateSearch = (req, res) => {
-  Search.findOneAndUpdate({ _id: req.params.SearchID }, req.body, {
+const updateSearchCrm = (req, res) => {
+  SearchCRM.findOneAndUpdate({ _id: req.params.SearchID }, req.body, {
     new: true,
     runValidators: true,
   })
@@ -200,8 +200,8 @@ const updateSearch = (req, res) => {
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
 };
 
-const deleteSearch = (req, res) => {
-  Search.findOneAndDelete({ _id: req.params.SearchID })
+const deleteSearchCrm = (req, res) => {
+  SearchCRM.findOneAndDelete({ _id: req.params.SearchID })
     .then((result) => res.status(200).json({ result }))
     .catch((error) => res.status(404).json({ msg: "Search not found" }));
 };
@@ -292,9 +292,9 @@ function sum(arr) {
 }
 
 module.exports = {
-  getSearchs,
-  postSearchs,
-  getSearch,
-  updateSearch,
-  deleteSearch,
+  getSearchsCrm,
+  postSearchsCrm,
+  getSearchCrm,
+  updateSearchCrm,
+  deleteSearchCrm,
 };

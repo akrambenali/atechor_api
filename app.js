@@ -5,7 +5,9 @@ const app = express();
 
 const client_routes = require("./route/client");
 const solution_routes = require("./route/solution");
+const solution_crm_routes = require("./route/solution-crm");
 const search_routes = require("./route/search");
+const search_routes_crm = require("./route/search-crm");
 const scores_routes = require("./route/scores");
 const rating_routes = require("./route/rating");
 
@@ -25,6 +27,8 @@ app.use("/api/v1/solutions", solution_routes);
 app.use("/api/v1/search", search_routes);
 app.use("/api/v1/scores", scores_routes);
 app.use("/api/v1/rating", rating_routes);
+app.use("/api/v1/solutionsCrm", solution_crm_routes);
+app.use("/api/v1/searchCrm", search_routes_crm);
 
 // set port, listen for requests
 const PORT = process.env.PORT;

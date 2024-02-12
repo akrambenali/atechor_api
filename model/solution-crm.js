@@ -1,7 +1,7 @@
 const uuid = require("uuid");
 const mongoose = require("mongoose");
 
-const SolutionSchema = new mongoose.Schema(
+const SolutionCrmSchema = new mongoose.Schema(
   {
     urlId: { type: "String", required: true, default: () => uuid.v4() },
     internationnalBusiness: {
@@ -147,6 +147,6 @@ const SolutionSchema = new mongoose.Schema(
   { timestamps: { createdAt: "created_at" } }
 );
 
-const Solution = mongoose.model("Solution", SolutionSchema);
+const SolutionCrm = mongoose.model("Solution_CRM", SolutionCrmSchema);
 
-module.exports = Solution;
+module.exports = SolutionCrm;

@@ -5,7 +5,7 @@ require("dotenv").config();
 
 // Create the transporter with the required configuration for Outlook
 // change the user and pass !
-const sendNotifEmailClient = (userEmail, lastName, firstName , url) => {
+const sendNotifEmailClient = (userEmail, lastName, firstName, url, type) => {
   var transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
     port: "587",
@@ -38,7 +38,8 @@ const sendNotifEmailClient = (userEmail, lastName, firstName , url) => {
     template: "user",
     context: {
       name: firstName + " " + lastName,
-      link: url
+      link: url,
+      solution: type,
     },
   };
 
@@ -51,7 +52,17 @@ const sendNotifEmailClient = (userEmail, lastName, firstName , url) => {
   });
 };
 
-const sendNotifEmailAtechor = (lastName, firstName, companyName, url, email, role, contactOk, phoneNumber) => {
+const sendNotifEmailAtechor = (
+  lastName,
+  firstName,
+  companyName,
+  url,
+  email,
+  role,
+  contactOk,
+  phoneNumber,
+  type
+) => {
   var transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
     port: "587",
@@ -85,13 +96,12 @@ const sendNotifEmailAtechor = (lastName, firstName, companyName, url, email, rol
     context: {
       name: firstName + " " + lastName,
       company: companyName,
-      solution: "ERP",
+      solution: type,
       link: url,
       email: email,
       phoneNumber: phoneNumber,
       role: role,
-      contactOk: contactOk ? 'Oui': 'Non'
-
+      contactOk: contactOk ? "Oui" : "Non",
     },
   };
 
@@ -106,5 +116,5 @@ const sendNotifEmailAtechor = (lastName, firstName, companyName, url, email, rol
 
 module.exports = {
   sendNotifEmailClient,
-  sendNotifEmailAtechor
+  sendNotifEmailAtechor,
 };

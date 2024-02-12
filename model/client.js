@@ -9,7 +9,8 @@ const ClientSchema = new mongoose.Schema(
     email: { type: "String" },
     phoneNumber: { type: "String" },
     acceptTerms: { type: "Boolean" },
-    contactOk: { type: "Boolean" }
+    contactOk: { type: "Boolean" },
+    type: { type: "string" }
   },
   { timestamps: { createdAt: "created_at" } }
 );

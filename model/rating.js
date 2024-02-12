@@ -4,6 +4,7 @@ const RatingSchema = new mongoose.Schema(
   {
     rate: { type: "String" },
     comment: { type: "String" },
+    type: { type: 'string'}
    
   },
   { timestamps: { createdAt: "created_at" } }
