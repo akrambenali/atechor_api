@@ -156,9 +156,9 @@ const postSearchs = async (req, res) => {
     let url = process.env.APP_URI_ERP + result.urlId;
     result.scores = scoreItems;
     result.history = request;
-    Scores.create(result);
-
     let client = await Client.findOne().sort({ created_at: -1 }).lean().exec();
+    result.iScontact = client.contactOk;
+    Scores.create(result);
     Notification.sendNotifEmailClient(
       client.email,
       client.lastName,

@@ -8,6 +8,7 @@ const ScoresSchema = new mongoose.Schema(
     history: {
       type: ["Mixed"],
     },
+    iScontact: { type: "Boolean" },
   },
   { timestamps: { createdAt: "created_at" } }
 );
